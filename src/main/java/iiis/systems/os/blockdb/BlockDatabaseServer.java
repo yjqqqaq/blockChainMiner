@@ -163,6 +163,7 @@ public class BlockDatabaseServer {
                         // get fromID, toID, value, miningFee
                         if (args.length != 5) System.out.println("Invalid arguments") ;
                         String uuid = randomHexString(16) ;
+                        System.out.println("set uuid = " + uuid) ;
                         Transaction newTrans = Transaction.newBuilder().setFromID(args[1]).setToID(args[2])
                                 .setValue(Integer.parseInt(args[3]))
                                 .setMiningFee(Integer.parseInt(args[4]))

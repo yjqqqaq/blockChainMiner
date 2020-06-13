@@ -39,10 +39,10 @@ class BlockDatabaseClient {
         try {
             response = blockingStub.get(request);
         } catch (StatusRuntimeException e) {
-            log.info(String.format("rpc failed:%s", e.getStatus()));
+            System.out.println(String.format("rpc failed"));
             return false ;
         }
-        log.info("Get: " + response.getValue());
+        System.out.println("Get: " + response.getValue());
         return true ;
     }
 
@@ -52,11 +52,11 @@ class BlockDatabaseClient {
         try {
             response = blockingStub.transfer(request) ;
         } catch (StatusRuntimeException e) {
-            log.info(String.format("rpc failed:%s", e.getStatus()));
+            System.out.println("rpc failed") ;
             return false;
         }
-        if (response.getSuccess()) log.info("Transfer Success" );
-        else log.info("Transfer Fail, maybe you spend too much money") ;
+        if (response.getSuccess()) System.out.println("Transfer Success" );
+        else System.out.println("Transfer Fail, maybe you give too much money to miner") ;
         return true;
     }
 
@@ -65,13 +65,13 @@ class BlockDatabaseClient {
         try {
             response = blockingStub.verify(request) ;
         } catch (StatusRuntimeException e) {
-            log.info(String.format("rpc failed:%s", e.getStatus()));
+            System.out.println(String.format("rpc failed:%s", e.getStatus()));
             return false ;
         }
-        log.info(response.getBlockHash()) ;
-        if (response.getResult() == VerifyResponse.Results.FAILED) log.info("Transfer FAILED" );
-        else if (response.getResult() == VerifyResponse.Results.PENDING) log.info("Transfer PENDING") ;
-        else log.info("Transfer SUCCESS") ;
+        System.out.println(response.getBlockHash()) ;
+        if (response.getResult() == VerifyResponse.Results.FAILED) System.out.println("Transfer FAILED" );
+        else if (response.getResult() == VerifyResponse.Results.PENDING) System.out.println("Transfer PENDING") ;
+        else System.out.println("Transfer SUCCESS") ;
         return true;
     }
 
@@ -80,10 +80,10 @@ class BlockDatabaseClient {
         try {
             response = blockingStub.getHeight(Null.newBuilder().build());
         } catch (StatusRuntimeException e) {
-            log.info(String.format("rpc failed:%s", e.getStatus()));
+            System.out.println(String.format("rpc failed:%s", e.getStatus()));
             return false ;
         }
-        log.info(response.getLeafHash() + "     " + response.getHeight()) ;
+        System.out.println(response.getLeafHash() + "     " + response.getHeight()) ;
         return true ;
     }
 
@@ -92,10 +92,10 @@ class BlockDatabaseClient {
         try {
             response = blockingStub.getBlock(request) ;
         } catch (StatusRuntimeException e) {
-            log.info(String.format("rpc failed:%s", e.getStatus()));
+            System.out.println(String.format("rpc failed:%s", e.getStatus()));
             return false;
         }
-        log.info(response.getJson()) ;
+        System.out.println(response.getJson()) ;
         return true ;
     }
 
@@ -104,7 +104,7 @@ class BlockDatabaseClient {
         try {
             response = blockingStub.withDeadlineAfter(10, TimeUnit.SECONDS).pushTransaction(request) ;
         } catch (StatusRuntimeException e) {
-            log.info(String.format("rpc failed:%s", e.getStatus()));
+            System.out.println(String.format("rpc failed:%s", e.getStatus()));
             return ;
         }
     }
@@ -114,7 +114,7 @@ class BlockDatabaseClient {
         try {
             response = blockingStub.withDeadlineAfter(10, TimeUnit.SECONDS).pushBlock(request) ;
         } catch (StatusRuntimeException e) {
-            log.info(String.format("rpc failed:%s", e.getStatus()));
+            System.out.println(String.format("rpc failed:%s", e.getStatus()));
             return ;
         }
     }
